@@ -2,23 +2,26 @@ import React, { Component } from "react";
 
 class Counter extends Component {
   state = {
-    count: 0,
     items: [
       {
         _id: 1,
-        name: "Item 1"
+        name: "Item 1",
+        count: 0
       },
       {
         _id: 2,
-        name: "Item 2"
+        name: "Item 2",
+        count: 0
       },
       {
         _id: 3,
-        name: "Item 3"
+        name: "Item 3",
+        count: 0
       },
       {
         _id: 4,
-        name: "Item 4"
+        name: "Item 4",
+        count: 0
       }
     ]
   };
@@ -39,35 +42,47 @@ class Counter extends Component {
 
   handleaddItem = () => {
     if (this.state.items.length === 0) return <li>Item added</li>;
-    this.setState({ items: [...this.state.items, { _id: 5, name: "Item 5" }] });
+    this.setState({
+      items: [...this.state.items, { _id: 5, name: "Item 5", count: 0 }]
+    });
   };
 
-  handleDecrement = () => {
-    if (this.state.count > 0) this.setState({ count: this.state.count - 1 });
-  };
+  handleDecrement(item) {
+    if (item.count > 0) {
+      --item.count;
+      const newItems = this.state.items.filter(i => {
+        return i._id !== item._id ? i : item;
+      });
 
-  handleIncrement = () => {
-    this.setState({ count: this.state.count + 1 });
-  };
+      this.setState({ items: [...newItems] });
+    }
+  }
+
+  handleIncrement(item) {
+    ++item.count;
+    const newItems = this.state.items.filter(i => {
+      return i._id !== item._id ? i : item;
+    });
+
+    this.setState({ items: [...newItems] });
+  }
 
   getItems() {
     if (this.state.items.length === 0) return "There are no items in your Cart";
     return (
       <ul>
-        {this.state.items.map(tag => (
-          <li key={tag._id}>
-            {tag.name}{" "}
+        {this.state.items.map(item => (
+          <li key={item._id}>
+            {item.name}{" "}
             <button
-              onClick={this.handleDecrement}
+              onClick={() => this.handleDecrement(item)}
               className="btn btn-secondary btn-sm m-2"
             >
               -
             </button>
-            <span className="badge m-3 badge-secondary">
-              {this.state.count}
-            </span>
+            <span className="badge m-3 badge-secondary">{item.count}</span>
             <button
-              onClick={this.handleIncrement}
+              onClick={() => this.handleIncrement(item)}
               className="btn btn-secondary btn-sm m-2"
             >
               +
