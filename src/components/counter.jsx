@@ -2,28 +2,8 @@ import React, { Component } from "react";
 
 class Counter extends Component {
   state = {
-    items: [
-      {
-        _id: 1,
-        name: "Item 1",
-        count: 0
-      },
-      {
-        _id: 2,
-        name: "Item 2",
-        count: 0
-      },
-      {
-        _id: 3,
-        name: "Item 3",
-        count: 0
-      },
-      {
-        _id: 4,
-        name: "Item 4",
-        count: 0
-      }
-    ]
+    totalItems: 0,
+    items: []
   };
 
   render() {
@@ -31,7 +11,10 @@ class Counter extends Component {
       <React.Fragment>
         <h1>Shopping Website Test</h1>
 
-        <button onClick={this.handleaddItem} className="btn btn-primary btn-bg">
+        <button
+          onClick={() => this.handleaddItem()}
+          className="btn btn-primary btn-bg"
+        >
           Add New Item
         </button>
 
@@ -40,15 +23,30 @@ class Counter extends Component {
     );
   }
 
-  handleaddItem = () => {
-    if (this.state.items.length === 0) return <li>Item added</li>;
+  handleaddItem() {
+    const newItem = {
+      _id: ++this.state.totalItems,
+      name: "Item " + this.state.totalItems,
+      count: 1
+    };
+
     this.setState({
-      items: [...this.state.items, { _id: 5, name: "Item 5", count: 0 }]
+      items: [...this.state.items, newItem]
     });
-  };
+  }
+
+  handleRemoveItem(item) {
+    if (this.state.items.length === 0) this.setState({ totalItems: 0 });
+    else {
+      const itemsAfterDeletion = this.state.items.filter(
+        i => i._id !== item._id
+      );
+      this.setState({ items: [...itemsAfterDeletion] });
+    }
+  }
 
   handleDecrement(item) {
-    if (item.count > 0) {
+    if (item.count > 1) {
       --item.count;
       const newItems = this.state.items.filter(i => {
         return i._id !== item._id ? i : item;
@@ -68,7 +66,8 @@ class Counter extends Component {
   }
 
   getItems() {
-    if (this.state.items.length === 0) return "There are no items in your Cart";
+    if (this.state.items.length === 0)
+      return <p>There are no items in your Cart</p>;
     return (
       <ul>
         {this.state.items.map(item => (
@@ -86,6 +85,12 @@ class Counter extends Component {
               className="btn btn-secondary btn-sm m-2"
             >
               +
+            </button>
+            <button
+              onClick={() => this.handleRemoveItem(item)}
+              className="btn btn-secondary btn-sm m-2"
+            >
+              Remove Item
             </button>
           </li>
         ))}
