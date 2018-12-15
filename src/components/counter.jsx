@@ -12,10 +12,17 @@ class Counter extends Component {
         <h1>Shopping Website Test</h1>
 
         <button
-          onClick={() => this.handleaddItem()}
-          className="btn btn-primary btn-bg"
+          onClick={() => this.handleAddItem()}
+          className="btn btn-success btn-bg"
         >
           Add New Item
+        </button>
+
+        <button
+          onClick={() => this.handleRemoveAllItems()}
+          className="btn btn-danger btn-bg m-3"
+        >
+          Remove All
         </button>
 
         {this.getItems()}
@@ -23,21 +30,24 @@ class Counter extends Component {
     );
   }
 
-  handleaddItem() {
+  handleAddItem() {
     const newItem = {
-      _id: ++this.state.totalItems,
+      _id: this.state.totalItems + 1,
       name: "Item " + this.state.totalItems,
       count: 1
     };
-
     this.setState({
+      totalItems: this.state.totalItems + 1,
       items: [...this.state.items, newItem]
     });
   }
 
+  handleRemoveAllItems() {
+    this.setState({ totalItems: 0, items: [] });
+  }
+
   handleRemoveItem(item) {
-    if (this.state.items.length === 0) this.setState({ totalItems: 0 });
-    else {
+    if (this.state.items.length !== 0) {
       const itemsAfterDeletion = this.state.items.filter(
         i => i._id !== item._id
       );
@@ -66,8 +76,9 @@ class Counter extends Component {
   }
 
   getItems() {
-    if (this.state.items.length === 0)
+    if (this.state.items.length === 0) {
       return <p>There are no items in your Cart</p>;
+    }
     return (
       <ul>
         {this.state.items.map(item => (
@@ -88,7 +99,7 @@ class Counter extends Component {
             </button>
             <button
               onClick={() => this.handleRemoveItem(item)}
-              className="btn btn-secondary btn-sm m-2"
+              className="btn btn-warning btn-sm m-2"
             >
               Remove Item
             </button>
