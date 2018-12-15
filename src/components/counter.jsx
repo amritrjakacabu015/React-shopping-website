@@ -8,25 +8,27 @@ class Counter extends Component {
 
   render() {
     return (
-      <React.Fragment>
-        <h1>Shopping Website Test</h1>
+      <div className="cart-main">
+        <center>
+          <h1 className="">Shopping Website Test</h1>
 
-        <button
-          onClick={() => this.handleAddItem()}
-          className="btn btn-success btn-bg"
-        >
-          Add New Item
-        </button>
+          <button
+            onClick={() => this.handleAddItem()}
+            className="btn btn-success btn-bg"
+          >
+            Add New Item
+          </button>
 
-        <button
-          onClick={() => this.handleRemoveAllItems()}
-          className="btn btn-danger btn-bg m-3"
-        >
-          Remove All
-        </button>
+          <button
+            onClick={() => this.handleRemoveAllItems()}
+            className="btn btn-danger btn-bg m-3"
+          >
+            Remove All
+          </button>
 
-        {this.getItems()}
-      </React.Fragment>
+          {this.getItems()}
+        </center>
+      </div>
     );
   }
 
