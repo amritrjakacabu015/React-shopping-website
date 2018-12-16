@@ -6,32 +6,6 @@ class Counter extends Component {
     items: []
   };
 
-  render() {
-    return (
-      <div className="cart-main">
-        <center>
-          <h1 className="">Shopping Website Test</h1>
-
-          <button
-            onClick={() => this.handleAddItem()}
-            className="btn btn-success btn-bg"
-          >
-            Add New Item
-          </button>
-
-          <button
-            onClick={() => this.handleRemoveAllItems()}
-            className="btn btn-danger btn-bg m-3"
-          >
-            Remove All
-          </button>
-
-          {this.getItems()}
-        </center>
-      </div>
-    );
-  }
-
   handleAddItem() {
     const newItem = {
       _id: this.state.totalItems + 1,
@@ -54,6 +28,9 @@ class Counter extends Component {
         i => i._id !== item._id
       );
       this.setState({ items: [...itemsAfterDeletion] });
+    }
+    if (this.state.items.length === 1) {
+      this.setState({ totalItems: 0 });
     }
   }
 
@@ -108,6 +85,30 @@ class Counter extends Component {
           </li>
         ))}
       </ul>
+    );
+  }
+
+  render() {
+    return (
+      <div>
+        <center>
+          <button
+            onClick={() => this.handleAddItem()}
+            className="btn btn-success btn-bg"
+          >
+            Add New Item
+          </button>
+
+          <button
+            onClick={() => this.handleRemoveAllItems()}
+            className="btn btn-danger btn-bg m-3"
+          >
+            Remove All
+          </button>
+
+          {this.getItems()}
+        </center>
+      </div>
     );
   }
 }
