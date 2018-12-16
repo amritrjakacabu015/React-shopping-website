@@ -1,33 +1,23 @@
 import React, { Component } from "react";
 
 class Counter extends Component {
-  state = {
-    count: 1
-  };
-
-  handleDecrement() {
-    if (this.state.count > 1) this.setState({ count: this.state.count - 1 });
-  }
-
-  handleIncrement() {
-    this.setState({ count: this.state.count + 1 });
-  }
-
   render() {
     return (
       <div>
         <center>
           <button
-            onClick={() => this.handleDecrement()}
+            onClick={() => this.props.onDecrement(this.props.counter)}
             className="btn btn-secondary btn-sm m-2"
           >
             -
           </button>
 
-          <span className="badge m-3 badge-secondary">{this.state.count}</span>
+          <span className="badge m-3 badge-secondary">
+            {this.props.counter.count}
+          </span>
 
           <button
-            onClick={() => this.handleIncrement()}
+            onClick={() => this.props.onIncrement(this.props.counter)}
             className="btn btn-secondary btn-sm m-2"
           >
             +
