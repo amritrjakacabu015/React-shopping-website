@@ -3,22 +3,20 @@ import Counter from "./counter";
 
 class AddCounter extends Component {
   render() {
+    const { onReset, onRemoveAllItems, counters } = this.props;
     return (
       <div>
-        <button
-          onClick={() => this.props.onReset()}
-          className="btn btn-primary btn-bg "
-        >
+        <button onClick={() => onReset()} className="btn btn-primary btn-bg ">
           Reset
         </button>
 
         <button
-          onClick={() => this.props.onRemoveAllItems()}
+          onClick={() => onRemoveAllItems()}
           className="btn btn-danger btn-bg m-3"
         >
           Remove All
         </button>
-        {this.props.counters.map(counter => (
+        {counters.map(counter => (
           <Counter
             key={counter._id}
             onDelete={this.props.onDelete}
