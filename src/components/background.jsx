@@ -8,8 +8,19 @@ class Background extends Component {
     counters: []
   };
 
+  handleLike = counter => {
+    const newCounter = [...this.state.counters];
+    const index = this.state.counters.indexOf(counter);
+    newCounter[index].liked = !newCounter[index].liked;
+    this.setState({ counters: [...newCounter] });
+  };
+
   handleAddCounter = () => {
-    const counter = { _id: this.state.totalCounters + 1, count: 1 };
+    const counter = {
+      _id: this.state.totalCounters + 1,
+      count: 1,
+      liked: false
+    };
     this.setState({
       totalCounters: this.state.totalCounters + 1,
       counters: [...this.state.counters, counter]
@@ -29,13 +40,11 @@ class Background extends Component {
   };
 
   handleDecrement = counter => {
-    if (counter.count > 1) {
-      const counters = [...this.state.counters];
-      const index = this.state.counters.indexOf(counter);
-      counters[index] = { ...counter };
-      counters[index].count--;
-      this.setState({ counters });
-    }
+    const counters = [...this.state.counters];
+    const index = this.state.counters.indexOf(counter);
+    counters[index] = { ...counter };
+    counters[index].count--;
+    this.setState({ counters });
   };
 
   handleIncrement = counter => {
@@ -80,6 +89,7 @@ class Background extends Component {
               onDecrement={this.handleDecrement}
               onIncrement={this.handleIncrement}
               counters={this.state.counters}
+              onClickLike={this.handleLike}
             />
           )}
         </center>
