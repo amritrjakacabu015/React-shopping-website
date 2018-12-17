@@ -72,7 +72,7 @@ class Background extends Component {
             }
           />
 
-          <h1 className="m-3">Shopping Website Test</h1>
+          <h1 className="m-3">Shopping Cart (React.JS)</h1>
 
           <button
             onClick={this.handleAddCounter}
@@ -80,7 +80,9 @@ class Background extends Component {
           >
             Add Counter
           </button>
-          {this.state.counters.length === 0 && <p>Your cart is empty</p>}
+          {this.state.counters.length === 0 && (
+            <p style={{ color: "red" }}>Your cart is empty</p>
+          )}
           {this.state.counters.length !== 0 && (
             <AddCounter
               onReset={this.handleReset}
