@@ -71,15 +71,17 @@ class Background extends Component {
           >
             Add Counter
           </button>
-
-          <AddCounter
-            onReset={this.handleReset}
-            onRemoveAllItems={this.handleRemoveAllItems}
-            onDelete={this.handleDelete}
-            onDecrement={this.handleDecrement}
-            onIncrement={this.handleIncrement}
-            counters={this.state.counters}
-          />
+          {this.state.counters.length === 0 && <p>Your cart is empty</p>}
+          {this.state.counters.length !== 0 && (
+            <AddCounter
+              onReset={this.handleReset}
+              onRemoveAllItems={this.handleRemoveAllItems}
+              onDelete={this.handleDelete}
+              onDecrement={this.handleDecrement}
+              onIncrement={this.handleIncrement}
+              counters={this.state.counters}
+            />
+          )}
         </center>
       </div>
     );
