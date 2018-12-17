@@ -4,13 +4,16 @@ import Navigation from "./navigation";
 
 class Background extends Component {
   state = {
-    counters: [
-      { _id: 0, count: 1 },
-      { _id: 1, count: 3 },
-      { _id: 2, count: 4 },
-      { _id: 3, count: 6 },
-      { _id: 4, count: 10 }
-    ]
+    totalCounters: 0,
+    counters: []
+  };
+
+  handleAddCounter = () => {
+    const counter = { _id: this.state.totalCounters + 1, count: 1 };
+    this.setState({
+      totalCounters: this.state.totalCounters + 1,
+      counters: [...this.state.counters, counter]
+    });
   };
 
   handleReset = () => {
@@ -22,7 +25,7 @@ class Background extends Component {
   };
 
   handleRemoveAllItems = () => {
-    this.setState({ counters: [] });
+    this.setState({ totalCounters: 0, counters: [] });
   };
 
   handleDecrement = counter => {
@@ -59,7 +62,16 @@ class Background extends Component {
               this.state.counters.filter(counter => counter.count > 0).length
             }
           />
-          <h1>Shopping Website Test</h1>
+
+          <h1 className="m-3">Shopping Website Test</h1>
+
+          <button
+            onClick={this.handleAddCounter}
+            className="btn btn-warning btm-bg m-3"
+          >
+            Add Counter
+          </button>
+
           <AddCounter
             onReset={this.handleReset}
             onRemoveAllItems={this.handleRemoveAllItems}
